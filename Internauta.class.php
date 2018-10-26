@@ -36,7 +36,7 @@ class Internauta {
     }
 
     function calcularIMC($peso, $altura) {
-        $resultado = round(($peso / ($altura * $altura)) * 10000, 2);
+        $resultado = round(($peso / ($altura * $altura)), 2);
         $this->categoria = Utils::categorizarIMC($resultado);
         $this->imc = $resultado;
     }

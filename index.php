@@ -41,7 +41,7 @@
 			<br>
 	
 			<br><label for="altura">Altura:</label>
-			<br><input name="altura['.$i.']" id="altura" type="number" required>
+			<br><input name="altura['.$i.']" id="altura" type="number" step="0.01" required>
 				
 			<br><br>');
 			
