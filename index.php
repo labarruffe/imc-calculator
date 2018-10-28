@@ -21,42 +21,60 @@
 </head>
 <body>
 
+	<!-- Start Page Loading -->
+	<div id="loader-wrapper">
+		<div id="loader"></div>        
+		<div class="loader-section section-left"></div>
+		<div class="loader-section section-right"></div>
+	</div>
+	<!-- End Page Loading -->
+
+	  <!-- START HEADER -->
+	  <header id="header" class="page-topbar">
+        <!-- start header nav-->
+        <div class="navbar-fixed">
+            <nav class="cyan">
+                <div class="nav-wrapper"> 
+					<h1 class="logo-wrapper"><a href="index.php" class="brand-logo darken-1">Calculadora de IMC</h1>
+                </div>
+            </nav>
+        </div>
+        <!-- end header nav-->
+  </header>
+  <!-- END HEADER -->
+
 	<div class="container">
 		<div class="section">
 
-			<p class="caption">Calcule o IMC</p>
-
-			<div class="divider"></div>
+			<p class="caption">Informe os dados</p>
 			
 			<!--Basic Form-->
 			<div id="basic-form" class="section">
-				<div class="row">
-					<form action="index.php" method="post">
-						<?php 
-							for($i = 0, $j = 1; $i < 3; $i++, $j++) {
+				<form action="index.php" method="post">
+					<div class="row">
+							<?php 
+								for($i = 0, $j = 1; $i < 3; $i++, $j++) {
 
-								print('<div class="col s12 m12 l4">
-									<div class="card-panel">
-										<h4 class="header2"> '.$j.'º Internauta</h4>
-										<div class="row">
-											<form class="col s12">
+									print('<div class="col s12 m12 l4">
+										<div class="card-panel">
+											<h4 class="header2"> '.$j.'º Internauta</h4>
+											<div class="row">
 												<div class="row">
 													<div class="input-field col s12">
-														<label for="nome">Name</label>
+														<label for="nome">Nome</label>
 														<input name="nome['.$i.']" id="nome" type="text" required>
 													</div>
 												</div>
 												<div class="row">
 													<div class="input-field col s12">
-														<label for="data_nascimento">Data de Nascimento:</label>
-														<input name="data_nascimento['.$i.']" id="data_nascimento" type="date" required>
+														<label for="data_nascimento">Data de Nascimento</label>
+														<input class="datepicker" name="data_nascimento['.$i.']" id="data_nascimento" type="date" required>
 													</div>
 												</div>
 												<div class="row">
 													<div class="input-field col s12">
-														<label for="sexo">Sexo:</label>
 														<select name="sexo['.$i.']" id="sexo">
-															<option value="">Escolha...</option>
+															<option value="" disabled selected>Escolha o sexo</option>
 															<option value="feminino">Feminino</option>
 															<option value="masculino">Masculino</option>
 															<option value="sem gênero">Sem Gênero</option>
@@ -65,69 +83,90 @@
 												</div>
 												<div class="row">
 													<div class="input-field col s12">
-														<label for="peso">Peso:</label>
-														<input name="peso['.$i.']" id="peso" type="number" step="0.1" required>
+														<label for="peso">Peso</label>
+														<input name="peso['.$i.']" id="peso" type="text" step="0.1" placeholder="Exemplo 75.5 ou 75" pattern="((\d{2}|\d{3}).(\d{1}))|(\d{2}|\d{3})" required>
 													</div>
 												</div>
 												<div class="row">
 													<div class="input-field col s12">
-														<label for="altura">Altura:</label>
-														<input name="altura['.$i.']" id="altura" type="number" step="0.01" required>
+														<label for="altura">Altura</label>
+														<input name="altura['.$i.']" id="altura" type="text" step="0.01" placeholder="Exemplo 1.85" pattern="(\d{1}).(\d{2})" required>
 													</div>
 												</div>
-											</form>
+											</div>
 										</div>
-									</div>
-								</div>');
-							} 
-						?>
-		<input name="acao" type="submit" value="Cadastrar">
+									</div>');
+								} 
+							?>
+					</div>
+					<div class="row submit-btn">
+						<div class="input-field col s12">
+							<button class="btn cyan waves-effect waves-light right" id="submit-btn" type="submit" name="acao" value="Cadastrar">Cadastrar
+								<i class="mdi-content-send right"></i>
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			
+			<?php
 
-					</form>
-				</div>
-			</div>
-			<div class="row">
-				<div class="input-field col s12">
-					<button class="btn cyan waves-effect waves-light right" id="submit-btn" type="submit" name="acao" value="Cadastrar">Cadastrar
-						<i class="mdi-content-send right"></i>
-					</button>
-				</div>
-			</div>
+				if($_POST) {
+					include "Internauta.class.php";
+					include "Grupo.class.php";
+					include "Utils.class.php";
+					
+					$grupo = new Grupo();
+				
+
+					for($i = 0; $i < count($_POST["nome"]); $i++) {
+						$internauta = new Internauta(
+													$_POST["nome"][$i],
+													$_POST["data_nascimento"][$i],
+													$_POST["sexo"][$i],
+													$_POST["peso"][$i],
+													$_POST["altura"][$i]);
+						$grupo->addInternauta($internauta);
+					}
+
+			
+					print('<div class="row">');
+
+						foreach($grupo->internautas as $internauta) {
+							$internauta->calcularIMC($internauta->peso, $internauta->altura);
+							print('<div class="col s12 m12 l4">
+								<div class="card-panel">
+									'.$internauta.'
+								</div>
+							</div>');
+						}
+
+						$grupo->calcularMedia();
+
+						$categoriaIMCGrupo = Utils::categorizarIMC($grupo->mediaIMC);
+						
+						print('<div class="col s12 m12 l12">
+							<div class="card-panel">
+								'.$grupo.' , sendo classificado como <b>'.$categoriaIMCGrupo.'</b>.
+							</div>							
+						</div>
+					</div>');
+				}
+			?>
 		</div>
 	</div>
 
-	<?php
+	<!-- START FOOTER -->
+	<footer class="page-footer">
+		<div class="footer-copyright">
+		<div class="container white-text">
+			<span>Copyright © 2018</span>
+			<span class="right"> Desenvolvido por Daniel Reali e Lucas Barruffe</span>
+		</div>
+		</div>
+ 	</footer>
+    <!-- END FOOTER -->
 
-		if($_POST) {
-			include "Internauta.class.php";
-			include "Grupo.class.php";
-			include "Utils.class.php";
-			
-			$grupo = new Grupo();
-
-			for($i = 0; $i < count($_POST["nome"]); $i++) {
-				$internauta = new Internauta(
-											$_POST["nome"][$i],
-											$_POST["data_nascimento"][$i],
-											$_POST["sexo"][$i],
-											$_POST["peso"][$i],
-											$_POST["altura"][$i]);
-				$grupo->addInternauta($internauta);
-			}
-
-			foreach($grupo->internautas as $internauta) {
-				$internauta->calcularIMC($internauta->peso, $internauta->altura);
-				print("<br><br>" .$internauta);
-			}
-
-			$grupo->calcularMedia();
-
-			$categoriaIMCGrupo = Utils::categorizarIMC($grupo->mediaIMC);
-
-			print("<br><br>" .$grupo. ", sendo classificado como " .$categoriaIMCGrupo. ".");
-		}
-
-	?>
 
  	<!-- ================================================
     Scripts

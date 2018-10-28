@@ -30,9 +30,9 @@ class Internauta {
 	}
 
     function __toString() {
-        return $this->nome. ", indivíduo " .$this->sexo. ", nascido em " .$this->data_nascimento. 
-        ".<br> Seu IMC é " .$this->imc. " e você é classificado como " .$this->categoria.
-        ".<br> Resultado obtido a partir do peso de " .$this->peso. " kg e altura de " .$this->altura. " metros.";
+        return "<b>" .ucfirst($this->nome). "</b> , indivíduo <b>" .$this->sexo. "</b>, nascido em <b>" .$this->data_nascimento. 
+        "</b>.<br> Seu IMC é <b>" .$this->imc. "</b> e você é classificado como <b>" .$this->categoria.
+        "</b>.<br> Resultado obtido a partir do peso de <b>" .$this->peso. "</b> kg e altura de <b>" .$this->altura. "</b> metros.";
     }
 
     function calcularIMC($peso, $altura) {

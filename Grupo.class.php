@@ -25,7 +25,7 @@ class Grupo {
     }
 
     function __toString() {
-        return "O IMC médio dos internautas é " .$this->mediaIMC; 
+        return "O IMC médio dos internautas é <b>" .$this->mediaIMC. "</b>"; 
     }
 
     function calcularMedia() {
