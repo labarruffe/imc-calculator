@@ -12,7 +12,6 @@
     <!-- CSS style Horizontal Nav (Layout 03)-->    
     <link href="css/style-horizontal.css" type="text/css" rel="stylesheet" media="screen,projection">
 
-
 	<!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
 	<link href="css/prism.css" type="text/css" rel="stylesheet" media="screen,projection">
 	<link href="js/plugins/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet" media="screen,projection">
@@ -30,17 +29,17 @@
 	<!-- End Page Loading -->
 
 	  <!-- START HEADER -->
-	  <header id="header" class="page-topbar">
-        <!-- start header nav-->
-        <div class="navbar-fixed">
-            <nav class="cyan">
-                <div class="nav-wrapper"> 
-					<h1 class="logo-wrapper"><a href="index.php" class="brand-logo darken-1">Calculadora de IMC</h1>
-                </div>
-            </nav>
-        </div>
-        <!-- end header nav-->
-  </header>
+	<header id="header" class="page-topbar">
+	<!-- start header nav-->
+	<div class="navbar-fixed">
+		<nav class="cyan">
+			<div class="nav-wrapper"> 
+				<h1 class="logo-wrapper"><a href="index.php" class="brand-logo darken-1">Calculadora de IMC</a></h1>
+			</div>
+		</nav>
+	</div>
+	<!-- end header nav-->
+	</header>
   <!-- END HEADER -->
 
 	<div class="container">

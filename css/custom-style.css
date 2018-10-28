@@ -63,8 +63,8 @@
     color:white; 
 }
 
-.select-dropdown {
-    color: #9e9e9e;
+.picker__day--selected, .picker__day--selected:hover, .picker--focused .picker__day--selected {
+    background-color: #00bcd4; 
 }
 
 ul.dropdown-content.select-dropdown li span {
