@@ -67,7 +67,7 @@
 												<div class="row">
 													<div class="input-field col s12">
 														<label for="data_nascimento">Data de Nascimento</label>
-														<input class="datepicker" name="data_nascimento['.$i.']" id="data_nascimento" type="date" required>
+														<input class="datepicker" name="data_nascimento['.$i.']" id="data_nascimento" type="text" required>
 													</div>
 												</div>
 												<div class="row">
