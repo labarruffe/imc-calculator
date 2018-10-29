@@ -83,13 +83,13 @@
 												<div class="row">
 													<div class="input-field col s12">
 														<label for="peso">Peso</label>
-														<input name="peso['.$i.']" id="peso" type="text" step="0.1" placeholder="Exemplo 75.5 ou 75" pattern="((\d{2}|\d{3}).(\d{1}))|(\d{2}|\d{3})" required>
+														<input name="peso['.$i.']" id="peso" type="text" step="0.1" placeholder="Exemplo 75,5 ou 75" pattern="((\d{2}|\d{3}).(\d{1}))|(\d{2}|\d{3})" required>
 													</div>
 												</div>
 												<div class="row">
 													<div class="input-field col s12">
 														<label for="altura">Altura</label>
-														<input name="altura['.$i.']" id="altura" type="text" step="0.01" placeholder="Exemplo 1.85" pattern="(\d{1}).(\d{2})" required>
+														<input name="altura['.$i.']" id="altura" type="text" step="0.01" placeholder="Exemplo 1,85" pattern="(\d{1}).(\d{2})" required>
 													</div>
 												</div>
 											</div>
@@ -123,8 +123,8 @@
 													$_POST["nome"][$i],
 													$_POST["data_nascimento"][$i],
 													$_POST["sexo"][$i],
-													$_POST["peso"][$i],
-													$_POST["altura"][$i]);
+													(float)str_replace(",", ".", $_POST["peso"][$i]),
+													(float)str_replace(",", ".", $_POST["altura"][$i]));
 						$grupo->addInternauta($internauta);
 					}
 
